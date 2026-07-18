@@ -27,11 +27,10 @@
         <div class="fields">
           <input id="url" type="text" inputmode="url" placeholder="https://example.co.jp　（会社の公式サイト URL・必須）" />
           <input id="companyName" type="text" placeholder="企業名（任意・空欄可）" />
-          <input id="passcode" type="password" placeholder="パスコード（管理者から共有された合言葉・必須）" />
         </div>
         <button id="submit" type="submit">診断を開始</button>
       </form>
-      <p class="note" id="formNote">※ 診断には 3〜8 分ほどかかります（Claude がサイトを調査し、7Sの各要素を分析します）。パスコードは次回以降このブラウザに自動入力されます。</p>
+      <p class="note" id="formNote">※ 診断には 3〜8 分ほどかかります（Claude がサイトを調査し、7Sの各要素を分析します）。1日の診断回数には上限があります。</p>
       <p class="note deploy-warn" id="deployNote" hidden>⚠ 接続先（GASウェブアプリURL）が未設定です。app.js の <code>API</code> をデプロイ後のURLに置き換えてください。</p>
     </section>
 

@@ -7,12 +7,11 @@
 const API = 'https://script.google.com/macros/s/AKfycbwcTanUcsM6sLMOTdZH_S1BH2U_j3oezYCD1nEH7zgG0Aa6wY39datkNNGpEv26T3ud/exec';
 
 const LS_HISTORY = '7s_history';
-const LS_PASSCODE = '7s_passcode';
 const POLL_MS = 10000; // GAS は毎分トリガー処理のため 10 秒間隔で十分
 
 const $ = (s) => document.querySelector(s);
 const el = {
-  form: $('#form'), url: $('#url'), companyName: $('#companyName'), passcode: $('#passcode'), submit: $('#submit'),
+  form: $('#form'), url: $('#url'), companyName: $('#companyName'), submit: $('#submit'),
   deployNote: $('#deployNote'),
   progress: $('#progress'), phaseText: $('#phaseText'), phaseUrl: $('#phaseUrl'),
   elapsed: $('#elapsed'), steps: $('#steps'),
@@ -43,8 +42,6 @@ const notDeployed = () => typeof API !== 'string' || API.indexOf('{{') >= 0;
 init();
 function init() {
   if (notDeployed()) el.deployNote.hidden = false;
-  const saved = localStorage.getItem(LS_PASSCODE);
-  if (saved) el.passcode.value = saved;
   el.form.addEventListener('submit', (e) => { e.preventDefault(); start(); });
   el.retryBtn.addEventListener('click', () => { reset(); el.url.focus(); });
   renderHistory();
@@ -53,10 +50,8 @@ function init() {
 async function start() {
   const url = el.url.value.trim();
   const companyName = el.companyName.value.trim();
-  const passcode = el.passcode.value.trim();
   if (!url) { el.url.focus(); return; }
   if (notDeployed()) { showError('接続先（GASウェブアプリURL）が未設定です。管理者にお問い合わせください。', ''); return; }
-  if (passcode) localStorage.setItem(LS_PASSCODE, passcode);
 
   el.submit.disabled = true;
   el.errorBox.hidden = true;
@@ -67,7 +62,7 @@ async function start() {
     const r = await fetch(API, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ action: 'analyze', url, companyName, passcode }),
+      body: JSON.stringify({ action: 'analyze', url, companyName }),
     });
     const j = await r.json();
     if (!j || j.error) throw new Error((j && j.error) || '送信に失敗しました');
