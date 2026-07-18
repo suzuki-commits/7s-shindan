@@ -97,7 +97,8 @@ async function poll(id) {
   try {
     j = await (await fetch(API + '?fn=status&id=' + encodeURIComponent(id))).json();
   } catch (_) { return; }
-  if (!j || j.error) return;
+  // 注意: ジョブ自体も失敗理由を j.error に持つ。API エラー（not found 等）は status が無いことで区別する
+  if (!j || (j.error && !j.status)) return;
   el.phaseText.textContent = j.phase || j.status;
   if (j.status === 'running' || j.status === 'queued') {
     setStep('research', j.status === 'running' ? 'active' : '');
