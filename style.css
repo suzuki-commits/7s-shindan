@@ -75,6 +75,7 @@ body {
 }
 
 /* 進捗 */
+[hidden] { display: none !important; }
 .progress { display: flex; gap: 18px; align-items: center; margin: 24px 0; }
 .spinner {
   width: 34px; height: 34px; border-radius: 50%; flex: 0 0 auto;
