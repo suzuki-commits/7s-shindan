@@ -35,11 +35,14 @@ body {
   position: sticky; top: 0; z-index: 10;
 }
 .site-head .wrap { display: flex; align-items: center; height: 60px; }
-.brand { display: flex; align-items: baseline; gap: 12px; }
-.brand-mark {
-  font-weight: 800; letter-spacing: .06em; font-size: 22px; color: var(--blue);
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand-link { display: flex; align-items: center; }
+.brand-logo { height: 34px; width: auto; display: block; }
+.brand-sub { font-size: 13px; color: var(--muted); letter-spacing: .02em; padding-top: 6px; }
+@media (max-width: 480px) {
+  .brand-logo { height: 28px; }
+  .brand-sub { display: none; }
 }
-.brand-sub { font-size: 13px; color: var(--muted); letter-spacing: .02em; }
 
 /* ヒーロー */
 .hero { padding: 48px 0 20px; }
